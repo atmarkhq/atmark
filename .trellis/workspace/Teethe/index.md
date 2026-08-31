@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 6
-- **Last Active**: 2026-08-30
+- **Total Sessions**: 7
+- **Last Active**: 2026-08-31
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~154 | Active |
+| `journal-1.md` | ~177 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 7 | 2026-08-31 | Rename project Pippin to Atmark | `7632b9e`, `27b9606` | `feat/pippin-skeleton-transport` |
 | 6 | 2026-08-30 | Pippin architecture reuse and safety hardening | `89b4d32`, `93a5a63`, `414b3ee` | `feat/pippin-skeleton-transport` |
 | 5 | 2026-08-29 | Bootstrap specs and architecture reuse audit | `ea718c4`, `e9f4596` | `feat/pippin-skeleton-transport` |
 | 4 | 2026-08-25 | Pippin Step 8 HIG redesign and verification | `922b9e7` | `feat/pippin-skeleton-transport` |

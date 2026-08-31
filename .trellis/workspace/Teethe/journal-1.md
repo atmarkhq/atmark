@@ -152,3 +152,26 @@ Completed SDK host alignment, honest live SQLite reads, per-App bounded AppleScr
 ### Status
 
 [OK] **Completed**
+
+
+## Session 7: Rename project Pippin to Atmark
+<!-- trellis-session: v=2 fp=f6a55328332cb4dc -->
+
+**Date**: 2026-08-31
+**Task**: Rename project Pippin to Atmark
+**Branch**: `feat/pippin-skeleton-transport`
+
+### Summary
+
+Merged the finished pippin-architecture feat branch into main (7632b9e), then executed the traceable rename task 08-31-atmark-rename: swept all live tracked surfaces Pippin->Atmark (package, 8 targets, dirs/files, identifiers, MCP wire names, scripts, specs, notice.md), new bundle ID io.github.atmarkhq.atmark, new identity Atmark Local Signing (old one untouched), remotes origin->atmarkhq/atmark with old URL archived as pippin-archived, iMCP/ leftover deleted, Refer/ permanently git-ignored. Verified: swift build+test 221/26, package_app.sh produces correctly signed Atmark.app. Historical task records kept verbatim; rename recorded in notice.md Rename history. TCC grants invalidated by design (user-accepted D1) and need manual re-grant.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `7632b9e` | merge: fold trellis form update chore into mainline |
+| `27b9606` | refactor!: rename project Pippin to Atmark |
+
+### Status
+
+[OK] **Completed**
