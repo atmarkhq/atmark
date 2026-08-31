@@ -2,7 +2,7 @@
 
 ## Domain Errors
 
-Use `PippinError` from `Sources/PippinCore/PippinError.swift` for failures that a
+Use `AtmarkError` from `Sources/AtmarkCore/AtmarkError.swift` for failures that a
 tool caller or user can act on. Choose a stable `Code`, keep `detail` to the
 failing field/backend/identifier name, and provide an imperative `hint`.
 Argument values, tokens, and personal data must never enter `detail` or hints.
@@ -19,13 +19,13 @@ Examples of established mappings:
 At the MCP boundary, `ServerHost.call` maps expected dispatch failures through
 `ServerHost.failure` to `CallTool.Result(isError: true)` with the compact
 structured `{ error: { code, detail, hint } }` body. New tool handlers must do
-the same for actionable `PippinError` values. Protocol/auth/session failures
+the same for actionable `AtmarkError` values. Protocol/auth/session failures
 remain HTTP/MCP errors. Do not throw a generic protocol error when the agent
 needs the domain code and recovery hint.
 
 Catch only where context can improve the result or cleanup is required.
 `ServerRuntime.start` tears down partial state, records a user-facing failure,
-and rethrows; `BackendRouter` preserves the first specific `PippinError`.
+and rethrows; `BackendRouter` preserves the first specific `AtmarkError`.
 
 ## Avoid
 

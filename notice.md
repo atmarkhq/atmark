@@ -1,27 +1,41 @@
-# Project Notice — Pippin
+# Project Notice — Atmark
 
 Durable, cross-task facts. Session progress does not belong here.
 
+## Rename history
+
+This project began inside a parent-directory project named iMCP, shipped under
+the product name Pippin, and was renamed to Atmark on 2026-08-31 when the tree
+migrated to this repository location. The rename changed the bundle ID and the
+code-signing identity, which invalidated every prior TCC grant; one-time manual
+re-granting was explicitly accepted. The full record lives in
+`.trellis/tasks/08-31-atmark-rename`; historical task records keep the old
+names verbatim by design, and this section is the only live document that may
+use them.
+
 ## Signing identity — do not regenerate
 
-Pippin.app is signed with a self-signed local identity. macOS keys TCC grants to
+Atmark.app is signed with a self-signed local identity. macOS keys TCC grants to
 the code signature, so replacing this certificate silently invalidates every
 permission the user has granted — it produces no error, only later failures that
 look like bugs.
 
 ```
-Identity    Pippin Local Signing
-SHA-1       1AB7E0BC58C427092143FBADABA7F34CD607775D
-Bundle ID   io.github.is52hertz.pippin
-Created     2026-08-23, validity 7300 days
+Identity    Atmark Local Signing
+Bundle ID   io.github.atmarkhq.atmark
+Created     2026-08-31 (rename), validity 7300 days
+SHA-1       D636537074936D9266FA0FEA2175721C3E07B2A3
 ```
 
 The designated requirement TCC matches on:
 
 ```
-identifier "io.github.is52hertz.pippin"
-  and certificate root = H"1ab7e0bc58c427092143fbadaba7f34cd607775d"
+identifier "io.github.atmarkhq.atmark"
+  and certificate root = H"d636537074936d9266fa0fea2175721c3e07b2a3"
 ```
+
+The identity replaces the pre-rename one (still in the keychain, unused — see
+Rename history); its creation is what killed the old grants.
 
 Only two things are pinned: the bundle identifier and the certificate. The
 binary's hash is not, so rebuilding freely is safe. Changing either of the two is
@@ -32,7 +46,7 @@ no `--force`. That is deliberate; do not add one.
 
 ## Packaging
 
-- `Scripts/package_app.sh` → `build/Pippin.app`. Requires the identity above and
+- `Scripts/package_app.sh` → `build/Atmark.app`. Requires the identity above and
   **fails hard** if it is missing or ambiguous. There is no ad-hoc fallback, by
   design — an ad-hoc signature has no stable designated requirement.
 - Hardened runtime is deliberately off. It exists to satisfy notarization, which
@@ -49,8 +63,8 @@ Two, both user-approved: `modelcontextprotocol/swift-sdk` (pinned `exact:
 `apple/swift-nio` (the MCP SDK ships no HTTP listener). Adding a third needs a
 decision.
 
-`PippinCore` must not import SwiftUI, AppKit, or the MCP SDK. The package graph
-blocks the SDK and NIO; `Tests/PippinCoreTests/ImportBoundaryTests.swift` covers
+`AtmarkCore` must not import SwiftUI, AppKit, or the MCP SDK. The package graph
+blocks the SDK and NIO; `Tests/AtmarkCoreTests/ImportBoundaryTests.swift` covers
 the system frameworks.
 
 ## Tool surface
@@ -71,7 +85,7 @@ the system frameworks.
 
 ## Stdio shim transport
 
-- `PippinShim` relays raw `Data` between swift-sdk 0.12.1's `StdioTransport`
+- `AtmarkShim` relays raw `Data` between swift-sdk 0.12.1's `StdioTransport`
   and `HTTPClientTransport`. Do not insert typed SDK `Client`/`Server` actors:
   they consume lifecycle messages and cannot transparently proxy unknown tools.
 - The shim converts newline, HTTP POST, SSE-event, and `MCP-Session-Id` framing
@@ -81,9 +95,9 @@ the system frameworks.
 - All shim state is scoped to one process/stdio connection. The endpoint,
   bearer token, session ID, SSE state, and requests are memory-only; the token
   must never enter logs, diagnostics, arguments, or environment variables.
-  `PippinShim` must not import or access Apple/TCC data frameworks.
+  `AtmarkShim` must not import or access Apple/TCC data frameworks.
 - Endpoint recovery validates a mode-0600 file, literal loopback host, port, and
-  live PID, then launches only bundle ID `io.github.is52hertz.pippin`. Startup
+  live PID, then launches only bundle ID `io.github.atmarkhq.atmark`. Startup
   waits are bounded; the `open` helper escalates TERM→KILL rather than hanging.
 - On stdin EOF, accepted POSTs receive a two-second drain grace. The shim then
   cancels any remainder, sends best-effort authenticated DELETE for the session,
@@ -96,7 +110,7 @@ the system frameworks.
   an EventKit request-access API or launch another app.
 - Keep that passive boundary separate from user onboarding:
   `PermissionProviding.currentPermissions()` is the only permission interface
-  visible to `ServerHost` and `pippin_status`; explicit UI clicks route through
+  visible to `ServerHost` and `atmark_status`; explicit UI clicks route through
   `PermissionActionPerforming` via `ServerRuntime`. Never merge the protocols or
   infer a grant from a request result — re-read the passive snapshot afterward.
 - Reminders reports `EKEventStore.authorizationStatus(for: .reminder)`. Mail
@@ -109,12 +123,12 @@ the system frameworks.
   after refresh, `not_determined` offers a separate prompting Apple Events call
   off `MainActor`. Denied/restricted opens Automation. Mail Data has no request
   API and only opens Full Disk Access with manual-add instructions.
-- macOS exposes no ordinary-app API for global Full Disk Access state. Pippin's
+- macOS exposes no ordinary-app API for global Full Disk Access state. Atmark's
   `full_disk_access` wire field is only an effective, read-only probe of the
   existing `~/Library/Mail` directory. The GUI deliberately labels it **Mail
   Data** and must not claim broader certainty.
 - `ServerHost` receives a `PermissionProviding` dependency, so unit tests use a
-  fixed snapshot and never touch live TCC. `pippin_status` is the only batch-one
+  fixed snapshot and never touch live TCC. `atmark_status` is the only batch-one
   production tool and includes this compact permission snapshot.
 - The menu and Settings share one `@MainActor @Observable` presentation mirror;
   resident actors remain authoritative. Settings updates validate and atomically

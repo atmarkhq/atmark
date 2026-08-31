@@ -4,11 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "Pippin",
+    name: "Atmark",
     platforms: [.macOS(.v26)],
     products: [
-        .executable(name: "PippinApp", targets: ["PippinApp"]),
-        .executable(name: "pippin-shim", targets: ["pippin-shim"]),
+        .executable(name: "AtmarkApp", targets: ["AtmarkApp"]),
+        .executable(name: "atmark-shim", targets: ["atmark-shim"]),
     ],
     dependencies: [
         // Pinned exactly: the SDK is pre-1.0 and this task mapped 0.12.1's
@@ -23,15 +23,15 @@ let package = Package(
         // Transport- and UI-independent core. Imports nothing from the SDK, NIO,
         // SwiftUI, or AppKit — enforced by the dependency graph for the packages
         // and by ImportBoundaryTests for the system frameworks.
-        .target(name: "PippinCore"),
+        .target(name: "AtmarkCore"),
 
-        .target(name: "PippinModules", dependencies: ["PippinCore"]),
+        .target(name: "AtmarkModules", dependencies: ["AtmarkCore"]),
 
         .target(
-            name: "PippinServer",
+            name: "AtmarkServer",
             dependencies: [
-                "PippinCore",
-                "PippinModules",
+                "AtmarkCore",
+                "AtmarkModules",
                 .product(name: "MCP", package: "swift-sdk"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "NIOPosix", package: "swift-nio"),
@@ -39,28 +39,28 @@ let package = Package(
             ]
         ),
 
-        .executableTarget(name: "PippinApp", dependencies: ["PippinCore", "PippinServer"]),
+        .executableTarget(name: "AtmarkApp", dependencies: ["AtmarkCore", "AtmarkServer"]),
 
         .target(
-            name: "PippinShim",
+            name: "AtmarkShim",
             dependencies: [.product(name: "MCP", package: "swift-sdk")]
         ),
 
-        .executableTarget(name: "pippin-shim", dependencies: ["PippinShim"]),
+        .executableTarget(name: "atmark-shim", dependencies: ["AtmarkShim"]),
 
         .testTarget(
-            name: "PippinCoreTests",
-            dependencies: ["PippinCore"],
+            name: "AtmarkCoreTests",
+            dependencies: ["AtmarkCore"],
             exclude: ["Fixtures"]
         ),
-        .testTarget(name: "PippinServerTests", dependencies: ["PippinServer"]),
+        .testTarget(name: "AtmarkServerTests", dependencies: ["AtmarkServer"]),
         .testTarget(
-            name: "PippinAppTests",
-            dependencies: ["PippinApp", "PippinCore", "PippinServer"]
+            name: "AtmarkAppTests",
+            dependencies: ["AtmarkApp", "AtmarkCore", "AtmarkServer"]
         ),
         .testTarget(
-            name: "PippinShimTests",
-            dependencies: ["PippinShim", "PippinServer", "PippinCore", .product(name: "MCP", package: "swift-sdk")]
+            name: "AtmarkShimTests",
+            dependencies: ["AtmarkShim", "AtmarkServer", "AtmarkCore", .product(name: "MCP", package: "swift-sdk")]
         ),
     ],
     swiftLanguageModes: [.v6]

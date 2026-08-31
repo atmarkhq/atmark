@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Create Pippin's long-lived local code-signing identity. Run once per machine.
+# Create Atmark's long-lived local code-signing identity. Run once per machine.
 #
 # Why this matters more than it looks: macOS keys TCC grants (Automation, Full
 # Disk Access, Reminders) to the code signature. Replacing the certificate does
@@ -48,7 +48,7 @@ if security find-certificate -c "$IDENTITY" >/dev/null 2>&1; then
   echo "Identity '$IDENTITY' already exists. Nothing to do."
   echo
   echo "This script never replaces an existing identity: doing so would silently"
-  echo "invalidate every TCC grant already given to Pippin.app."
+  echo "invalidate every TCC grant already given to Atmark.app."
   echo
   security find-identity -v -p codesigning | grep -F "$IDENTITY" || true
   echo
@@ -123,6 +123,6 @@ echo
 echo "Done. '$IDENTITY' is ready."
 echo "  SHA-1: $FINGERPRINT"
 echo
-echo "Record that fingerprint. Every Pippin build must report the same one;"
+echo "Record that fingerprint. Every Atmark build must report the same one;"
 echo "if it ever changes, the TCC grants are gone and the permissions must be"
 echo "granted again from scratch."

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build and assemble Pippin.app, then sign it with the stable local identity.
+# Build and assemble Atmark.app, then sign it with the stable local identity.
 #
 # There is no ad-hoc signing path. The upstream template falls back to
 # `codesign --sign -` when no identity is configured; that fallback is removed
@@ -35,7 +35,7 @@ Run Scripts/setup_dev_signing.sh once to create it.
 
 Refusing to fall back to ad-hoc signing: an ad-hoc signature would build
 successfully and then silently invalidate every TCC permission granted to
-Pippin.app, which surfaces later as unexplained permission failures.
+Atmark.app, which surfaces later as unexplained permission failures.
 MSG
   exit 1
 fi
@@ -70,11 +70,11 @@ install_binary() {
   chmod +x "$dest"
 }
 
-# The bundle executable is named after the app; the SwiftPM product is PippinApp.
-install_binary PippinApp   "$APP/Contents/MacOS/${APP_NAME}"
+# The bundle executable is named after the app; the SwiftPM product is AtmarkApp.
+install_binary AtmarkApp   "$APP/Contents/MacOS/${APP_NAME}"
 # The shim ships inside the bundle so there is one artifact to install and
 # clients have a stable path to point at.
-install_binary pippin-shim "$APP/Contents/MacOS/pippin-shim"
+install_binary atmark-shim "$APP/Contents/MacOS/atmark-shim"
 
 # --- Info.plist --------------------------------------------------------------
 
@@ -97,8 +97,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundleVersion</key><string>${BUILD_NUMBER}</string>
     <key>LSMinimumSystemVersion</key><string>${MACOS_MIN_VERSION}</string>
     <key>LSUIElement</key><${LSUI_VALUE}/>
-    <key>NSAppleEventsUsageDescription</key><string>Pippin controls other apps on your Mac to answer questions and make the changes you ask an AI assistant for.</string>
-    <key>NSRemindersFullAccessUsageDescription</key><string>Pippin reads and edits your reminders so an AI assistant can work with them on your behalf.</string>
+    <key>NSAppleEventsUsageDescription</key><string>Atmark controls other apps on your Mac to answer questions and make the changes you ask an AI assistant for.</string>
+    <key>NSRemindersFullAccessUsageDescription</key><string>Atmark reads and edits your reminders so an AI assistant can work with them on your behalf.</string>
     <key>GitCommit</key><string>${GIT_COMMIT}</string>
 </dict>
 </plist>
@@ -112,7 +112,7 @@ xattr -cr "$APP"
 find "$APP" -name '._*' -delete
 
 # Nested binaries are signed before the bundle that contains them.
-codesign --force --sign "$IDENTITY_HASH" "$APP/Contents/MacOS/pippin-shim"
+codesign --force --sign "$IDENTITY_HASH" "$APP/Contents/MacOS/atmark-shim"
 codesign --force --sign "$IDENTITY_HASH" "$APP"
 
 # No --options runtime: hardened runtime exists to satisfy notarization, which

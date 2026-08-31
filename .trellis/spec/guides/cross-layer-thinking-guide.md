@@ -1,6 +1,6 @@
 # Cross-Layer Thinking Guide
 
-Map the real Pippin flow before changing a contract. The important boundaries
+Map the real Atmark flow before changing a contract. The important boundaries
 are SwiftPM targets, actor ownership, MCP transport conversion, persistence, and
 SwiftUI presentation.
 
@@ -15,14 +15,14 @@ NIO HTTP → HTTPListener → ServerHost validation/session routing
 - Keep authentication, sessions, visible-tool decisions, and MCP call dispatch
   in `ServerHost`.
 - Keep reusable validation and safety primitives transport-free in
-  `PippinCore`.
-- Convert actionable domain failures to the structured `PippinError` wire shape;
+  `AtmarkCore`.
+- Convert actionable domain failures to the structured `AtmarkError` wire shape;
   do not turn them into empty successful results.
 
 ## Settings and Presentation Flow
 
 ```text
-SwiftUI control → PippinPresentationModel → ServerRuntime.updateConfig
+SwiftUI control → AtmarkPresentationModel → ServerRuntime.updateConfig
                 → Config.save → ServerHost.updateConfig → snapshot → SwiftUI
 ```
 
@@ -33,10 +33,10 @@ from `AppDelegate`.
 
 ## Package and Import Boundaries
 
-- `PippinCore` has no MCP, NIO, SwiftUI, or AppKit dependency.
-- `PippinModules` depends on `PippinCore`; it must not own transport behavior.
-- `PippinServer` adapts core/module behavior to MCP and NIO.
-- `PippinApp` composes the resident service and owns presentation/UI behavior.
+- `AtmarkCore` has no MCP, NIO, SwiftUI, or AppKit dependency.
+- `AtmarkModules` depends on `AtmarkCore`; it must not own transport behavior.
+- `AtmarkServer` adapts core/module behavior to MCP and NIO.
+- `AtmarkApp` composes the resident service and owns presentation/UI behavior.
 - Tests belong to the target whose contract they verify; import-boundary tests
   enforce the system-framework edges that SwiftPM cannot express.
 
@@ -52,8 +52,8 @@ tests, `ServerRuntime.updateConfig`, `ServerHost.updateConfig`, Settings control
 and any tool-visibility effect.
 
 When changing runtime or permission state, inspect `ServerSnapshot`,
-`AppRuntimeSnapshot`, `PippinPresentationModel`, both app surfaces, preview
-fixtures, and `PippinAppTests`.
+`AppRuntimeSnapshot`, `AtmarkPresentationModel`, both app surfaces, preview
+fixtures, and `AtmarkAppTests`.
 
 When adding private-store access, trace path resolution, schema probing, bound
 query values, backend fallback, and the final user-visible error. The existing

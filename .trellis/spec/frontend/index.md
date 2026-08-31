@@ -1,6 +1,6 @@
 # App and SwiftUI Specifications
 
-These rules cover the macOS application in `Sources/PippinApp`.
+These rules cover the macOS application in `Sources/AtmarkApp`.
 
 ## Pre-Development Checklist
 

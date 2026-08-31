@@ -6,7 +6,7 @@
   native controls, keyboard conventions, and semantic labels.
 - Test presentation and runtime behavior through protocols/snapshots rather than
   launching real listeners or requesting real TCC permissions. App tests belong
-  in `Tests/PippinAppTests`; core/server behavior remains in its owning target.
+  in `Tests/AtmarkAppTests`; core/server behavior remains in its owning target.
 - For settings changes, test success, validation/persistence failure, host update,
   and the rule that the presented mirror advances only after success.
 - Keep preview-only substitutes under `PreviewSupport/` and out of production
@@ -15,7 +15,7 @@
 Verification commands:
 
 ```bash
-swift test --filter PippinAppTests
+swift test --filter AtmarkAppTests
 swift test
 swift build
 ```

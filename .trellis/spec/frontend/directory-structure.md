@@ -1,20 +1,20 @@
 # App Directory Structure
 
-`Sources/PippinApp` is organized by responsibility:
+`Sources/AtmarkApp` is organized by responsibility:
 
 - `App/` owns the SwiftUI entry point and application/window integration.
-  `App/PippinApp.swift` declares `MenuBarExtra`, the Settings window, and commands.
+  `App/AtmarkApp.swift` declares `MenuBarExtra`, the Settings window, and commands.
 - `Runtime/` owns async service lifecycle. `Runtime/ServerRuntime.swift` composes
   `ServerHost` and `HTTPListener` and publishes `AppRuntimeSnapshot`.
 - `Presentation/` holds UI-facing projections such as
-  `PippinPresentationModel`, `MenuBarPresentation`, and
+  `AtmarkPresentationModel`, `MenuBarPresentation`, and
   `PermissionActionPresentation`.
 - `MenuBar/` and `Settings/` contain feature views. Current entry views are
-  `PippinMenuView` and `PippinSettingsView`; settings are split into focused pane
+  `AtmarkMenuView` and `AtmarkSettingsView`; settings are split into focused pane
   and row files rather than one monolith.
 - `SharedUI/` contains controls used across app surfaces; `PreviewSupport/`
   contains preview-only runtime support.
 
-Keep backend DTOs and safety logic in `PippinCore`/`PippinServer`. Do not place
+Keep backend DTOs and safety logic in `AtmarkCore`/`AtmarkServer`. Do not place
 service ownership in a view, production behavior in preview support, or one-off
 feature controls in `SharedUI`.

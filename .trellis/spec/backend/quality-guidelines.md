@@ -15,10 +15,10 @@ and cleanup after startup failure when affected.
 Use the smallest relevant command while iterating, then the full suite:
 
 ```bash
-swift test --filter PippinCoreTests
-swift test --filter PippinServerTests
-swift test --filter PippinAppTests
-swift test --filter PippinShimTests
+swift test --filter AtmarkCoreTests
+swift test --filter AtmarkServerTests
+swift test --filter AtmarkAppTests
+swift test --filter AtmarkShimTests
 swift test
 swift build
 ```

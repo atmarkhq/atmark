@@ -1,6 +1,6 @@
 # Database Guidelines
 
-Pippin does not own an ORM or migration system. `SQLiteReader` provides the
+Atmark does not own an ORM or migration system. `SQLiteReader` provides the
 read-only infrastructure for best-effort access to private stores owned by other
 macOS apps; no production module uses it yet.
 
@@ -16,7 +16,7 @@ modified by another macOS application, beginning with Mail's Envelope Index.
 - `SQLiteReader.resolveVersionedPath(_:) throws -> String` resolves one `*`
   version component at runtime.
 - `SQLiteReader.init(path:) throws` opens the database read-only.
-- `SQLiteReader.probe(_:) -> Result<Void, PippinError>` verifies required tables
+- `SQLiteReader.probe(_:) -> Result<Void, AtmarkError>` verifies required tables
   and columns before the backend is considered available.
 - `SQLiteReader.query(_:parameters:map:) throws -> [T]` accepts
   repository-authored SQL and bound `[SQLiteValue]` parameters.
@@ -54,10 +54,10 @@ modified by another macOS application, beginning with Mail's Envelope Index.
 | Prepare/step returns primary or extended `BUSY` / `LOCKED` | `backend_unavailable` with retry/fallback guidance |
 | Other prepare, bind, or terminal step failure | explicit schema/query error; never return fabricated zero rows |
 | SQLite unavailable but fallback succeeds | response marked `degraded` with reason |
-| All backends unavailable | throw actionable `PippinError` |
+| All backends unavailable | throw actionable `AtmarkError` |
 
 Missing Full Disk Access, a moved path, a changed schema, and an incomplete query
-must become actionable `PippinError` values. `BackendRouter.route` may fall back
+must become actionable `AtmarkError` values. `BackendRouter.route` may fall back
 to another backend, but it reports `degraded` and `reason`; if all backends fail,
 it throws rather than returning a fabricated empty answer.
 
@@ -72,11 +72,11 @@ it throws rather than returning a fabricated empty answer.
 
 ### 6. Tests Required
 
-- `Tests/PippinCoreTests/SQLiteReaderTests.swift`: read-only opening, actual WAL
+- `Tests/AtmarkCoreTests/SQLiteReaderTests.swift`: read-only opening, actual WAL
   mode plus later-commit visibility on one reader, rollback-journal contention
   returning inside the 750 ms test bound, version resolution, bound injection
   payloads, schema mismatch, missing path, and terminal query failure.
-- `Tests/PippinCoreTests/BackendRouterTests.swift`: primary success, degraded
+- `Tests/AtmarkCoreTests/BackendRouterTests.swift`: primary success, degraded
   fallback, and all-backends-failed behavior.
 - Each concrete module adds an integration test while the owning app is running,
   including WAL/change visibility and the permission-denied path.
