@@ -81,8 +81,11 @@ written against them.
 - [x] **AC2** Signing identity is byte-identical across three consecutive
       rebuild-and-repackage cycles, and a permission-dependent call keeps working
       with no fresh TCC prompt. (Feeds parent A1.)
-- [ ] **AC3** Claude Code connects over HTTP and lists exactly the enabled tools;
+- [x] **AC3** Claude Code connects over HTTP and lists exactly the enabled tools;
       Claude Code connects through `pippin-shim` and lists the same set.
+      Verified 2026-09-04 under the post-rename names (`atmark-shim`,
+      `atmark_status`); evidence in
+      `research/step9-integration-verification.md` (§Claude Code verification).
 - [x] **AC4** Two clients connected at once are served by one resident app
       process. A shim adds no shared or persistent state: each shim process holds
       only the temporary transport/session state scoped to its own stdio

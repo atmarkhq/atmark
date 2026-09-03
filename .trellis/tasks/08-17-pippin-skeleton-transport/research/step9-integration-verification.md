@@ -96,7 +96,7 @@ interactive login or persist MCP configuration. Consequently:
 |---|---|---|
 | AC1 package and signature | Pass | three packages plus bundle/signature inspection |
 | AC2 TCC stability | Pass | identity and passive grants stable; user confirmed no fresh prompt |
-| AC3 Claude Code HTTP + shim | Blocked | Claude Code logged out; no API key |
+| AC3 Claude Code HTTP + shim | Pass | 2026-09-04 live dual-transport test (see Claude Code verification below) |
 | AC4 single-owner concurrency | Pass | two live shim clients, one app, shared-state transport test |
 | AC5 validators | Pass | HTTP validator and live transport suites |
 | AC6 structural module gating | Pass | synthetic catalogue plus list-changed integration |
@@ -106,5 +106,31 @@ interactive login or persist MCP configuration. Consequently:
 | AC10 HIG | Pass | Step 8 signed-app review |
 | AC11 tier-ready tokens | Pass | two-token capability test |
 
-Step 9 and the skeleton task remain in progress only because AC3 requires
-restored Claude Code access.
+Step 9 closed 2026-09-04; AC3 is recorded as Pass in the table above.
+
+## Update 2026-09-04 — Claude Code verification (AC3 closed)
+
+The blocker resolved: the user logged Claude Code in on their own account. The
+product now runs under its post-rename identity, so names differ from the PRD:
+tool `atmark_status` is the PRD's `pippin_status`, and server name `atmark` is
+the PRD's `pippin`. Atmark.app was packaged and launched fresh from the signed
+bundle (identity unchanged, matching the repo-root notice: SHA-1
+D636537074936D9266FA0FEA2175721C3E07B2A3); `endpoint.json` (mode 0600)
+published port 51969.
+
+Agent-side protocol pre-checks (no LLM tokens spent): `POST /mcp` without a
+token returned 401; with the bearer token it returned 200 and issued an
+`MCP-Session-Id`; a stdio handshake through the bundled shim listed exactly
+`atmark_status`.
+
+Live Claude Code test, reported by the user (2026-09-04): both registered
+servers — `atmark-http` (direct Streamable HTTP) and `atmark-shim` (bundled
+stdio shim) — exposed exactly one atmark tool, `atmark_status`, and its output
+(version 0.1.0, port 51969, capabilities/modules/permissions snapshot) was
+field-identical across the two transports, with no discrepancies. The user's
+report is quoted in the session journal for this date.
+
+Credential handling: the bearer token exists only in the project-local Claude
+Code config (the user's `~/.claude-personal/.claude.json`, outside the repo)
+and in `endpoint.json` (mode 0600, gitignored). It appears in no committed file,
+argument, or log.

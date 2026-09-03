@@ -347,10 +347,15 @@ dependency, signing changes, or the real server switch. Step 9 may proceed on
 the existing transport contract independently of the planned lifecycle child.
 
 ### Step 9 — Integration and full-scope check
-- [ ] Connect Claude Code over HTTP and over the shim; confirm identical tool
-      lists. AC3. External prerequisite: restore Claude Code organization access
-      or provide an Anthropic API key; until then, retain the protocol-level and
-      Codex smoke evidence without marking AC3 complete.
+- [x] Connect Claude Code over HTTP and over the shim; confirm identical tool
+      lists. AC3. Verified 2026-09-04: Claude Code (CLI 2.1.259, user session,
+      logged in) connected as `atmark-http` (direct Streamable HTTP, port 51969)
+      and `atmark-shim` (bundled stdio shim). Both listed exactly `atmark_status`
+      — the post-rename `pippin_status` — and its output (version 0.1.0, port
+      51969, permission snapshot) was field-identical across the two transports.
+      Agent-side protocol pre-checks (401 without token, 200 with token, shim
+      stdio handshake) ran first with no LLM tokens. Evidence in
+      `research/step9-integration-verification.md`.
 - [x] Two concurrent clients, one process, shared state, config change observed
       by both. AC4.
 - [x] Three rebuild-repackage cycles with no fresh TCC prompt. AC2.
@@ -379,6 +384,11 @@ configuration. AC3 and the first Step 9 item remain externally blocked rather
 than failed. Full evidence and the public-safe checklist are in
 `research/step9-integration-verification.md` and
 `research/step9-acceptance-checklist.html`.
+
+Step 9 closed 2026-09-04: the external blocker was resolved by the user logging
+Claude Code in on their own account; AC3 passed a live dual-transport test (see
+the research file's update section). All eleven ACs now pass and the task is
+ready for archive.
 
 ## Validation Commands
 
