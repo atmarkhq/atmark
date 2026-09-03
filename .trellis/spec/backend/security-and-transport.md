@@ -98,19 +98,19 @@ never appear in logs, errors, status tools, UI, or audit records.
 
 ### 6. Tests Required
 
-- `Tests/PippinServerTests/ServerHostTests.swift`: authentication, Origin,
+- `Tests/AtmarkServerTests/ServerHostTests.swift`: authentication, Origin,
   session binding, stale calls, concurrent clients, and DELETE lifecycle.
-- `Tests/PippinServerTests/ToolRegistryTests.swift`: module/write/capability
+- `Tests/AtmarkServerTests/ToolRegistryTests.swift`: module/write/capability
   visibility and deterministic ordering.
-- `Tests/PippinCoreTests/ConfirmTokenTests.swift` and
+- `Tests/AtmarkCoreTests/ConfirmTokenTests.swift` and
   `ToolContextTests.swift`: TTL, single use, exact ID set, tool/session binding,
   no-mutation preview, intent-before-perform, degraded success, health
   block/recovery, and audit outcomes.
-- `Tests/PippinCoreTests/AppleScriptRunnerTests.swift`: same-target serialization,
+- `Tests/AtmarkCoreTests/AppleScriptRunnerTests.swift`: same-target serialization,
   cross-target overlap, queued/running cancellation, both timeouts, bounded
   stdout/stderr, injection payloads, spawn failure, leader-exit descendant
   cleanup, and no surviving processes without invoking TCC.
-- `Tests/PippinCoreTests/SafetyPrimitivesTests.swift`: intent/outcome UUID
+- `Tests/AtmarkCoreTests/SafetyPrimitivesTests.swift`: intent/outcome UUID
   correlation, append/sync and every rotation failure point, tail isolation,
   modes 0700/0600, unhealthy-latch semantics, and one-generation rotation.
 - Re-run `ToolSurfaceBudgetTests` whenever production tools change.

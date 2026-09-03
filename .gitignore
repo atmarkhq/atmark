@@ -14,6 +14,9 @@ DerivedData/
 # Build output (assembled .app bundle)
 build/
 
+# Reference material — permanently untracked, never commit (rename decision D2)
+Refer/
+
 # ---------------------------------------------------------------------------
 # Signing material and secrets — NEVER commit.
 #
@@ -21,7 +24,7 @@ build/
 # a signing identity directly in the login keychain and exports nothing, so
 # nothing here should ever exist in the working tree. These rules are the
 # backstop for a mistake, not a description of normal operation: a leaked
-# signing key lets anyone produce a binary macOS trusts as Pippin, and any TCC
+# signing key lets anyone produce a binary macOS trusts as Atmark, and any TCC
 # grant the user has given would extend to it.
 # ---------------------------------------------------------------------------
 *.p12

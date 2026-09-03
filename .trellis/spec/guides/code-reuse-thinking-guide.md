@@ -15,9 +15,9 @@ rg "symbol-or-behavior" Sources Tests
   Capabilities)`. Transports and modules must not reproduce its filtering.
 - `ToolContext.confirmDestructive` owns preview, token consumption, and audit
   sequencing for destructive operations.
-- `PippinPresentationModel` owns status, permission-action, and settings-error
+- `AtmarkPresentationModel` owns status, permission-action, and settings-error
   projection shared by the menu and Settings window.
-- `PippinSettingsButton` and `PermissionActionControl` are existing shared UI
+- `AtmarkSettingsButton` and `PermissionActionControl` are existing shared UI
   controls with real callers on more than one app surface.
 
 ## Extraction Rule
@@ -27,7 +27,7 @@ same behavior or when one stable contract must change atomically for all callers
 Two literals that merely match today are not automatically one concept.
 
 Prefer named owners for stable concepts already present in the codebase, such as
-`PippinWindow.settingsID`, `StatusTool.name`, and
+`AtmarkWindow.settingsID`, `StatusTool.name`, and
 `ConfirmTokenStore.maximumItemsPerCall`. Do not create a parallel constant in a
 view, transport, or test fixture.
 
@@ -46,7 +46,7 @@ required so a refactor cannot silently widen the listener.
   views.
 - Do not wrap a single call in a speculative protocol, generic utility, or
   configuration flag.
-- Do not move code into `PippinCore` merely to reuse it if that introduces MCP,
+- Do not move code into `AtmarkCore` merely to reuse it if that introduces MCP,
   NIO, SwiftUI, or AppKit imports.
 
 ## Review Checklist

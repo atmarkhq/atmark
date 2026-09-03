@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/backend/index.md", "reason": "Backend spec index; references target names that this rename changes (PippinCore etc.) and the non-negotiable boundary that must survive the rename"}
+{"file": ".trellis/spec/backend/directory-structure.md", "reason": "Defines where sources/tests live; directory renames must keep this structure intact under Atmark names"}
+{"file": ".trellis/spec/backend/security-and-transport.md", "reason": "Covers bundle-ID allowlist, shim transport, and signing surfaces touched by the rename"}
+{"file": "notice.md", "reason": "Authoritative signing/TCC facts (designated requirement, identity, bundle ID) that this rename deliberately invalidates and must update"}
+{"file": ".trellis/tasks/08-31-atmark-rename/design.md", "reason": "Naming map (old→new tokens) and sweep exclusions; the implementer must follow it exactly"}

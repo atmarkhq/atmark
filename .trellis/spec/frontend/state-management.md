@@ -14,7 +14,7 @@ objects into a shared presentation model and then into SwiftUI views.
   fresh snapshot. A caller must not advance its UI mirror on failure.
 - On startup failure, tear down listener/host/endpoint state before publishing
   `.failed`; on stop, remove endpoint metadata and clear owned server objects.
-- `PippinApp` obtains the shared model from `AppDelegate` and supplies the same
+- `AtmarkApp` obtains the shared model from `AppDelegate` and supplies the same
   instance to menu-bar and Settings surfaces.
 
 Avoid duplicate sources of truth in individual views, direct config-file writes

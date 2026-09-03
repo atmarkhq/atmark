@@ -3,7 +3,7 @@
 # Dev loop: stop the running instance, repackage, relaunch the bundle.
 #
 # Always run the packaged bundle, never `swift run`. A bare executable has a
-# different code signature and bundle identity from Pippin.app, so it neither
+# different code signature and bundle identity from Atmark.app, so it neither
 # inherits the app's TCC grants nor can meaningfully acquire its own — every
 # permission-dependent path would fail or prompt again.
 

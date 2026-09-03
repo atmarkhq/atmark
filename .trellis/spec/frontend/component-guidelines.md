@@ -1,8 +1,8 @@
 # SwiftUI Component Guidelines
 
-- Compose scenes at `PippinApp`: the menu bar receives
-  `PippinMenuView(model: delegate.model)` and the Settings window receives
-  `PippinSettingsView(model: delegate.model)`. Pass the shared presentation model
+- Compose scenes at `AtmarkApp`: the menu bar receives
+  `AtmarkMenuView(model: delegate.model)` and the Settings window receives
+  `AtmarkSettingsView(model: delegate.model)`. Pass the shared presentation model
   explicitly rather than resolving server globals inside views.
 - Keep feature views under `MenuBar/` or `Settings/`; split settings by pane,
   section, and reusable row as the existing filenames demonstrate.

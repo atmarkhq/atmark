@@ -1,7 +1,7 @@
 # Backend Specifications
 
-These rules cover the SwiftPM service layers in `Sources/PippinCore`,
-`Sources/PippinModules`, and `Sources/PippinServer`.
+These rules cover the SwiftPM service layers in `Sources/AtmarkCore`,
+`Sources/AtmarkModules`, and `Sources/AtmarkServer`.
 
 ## Pre-Development Checklist
 
@@ -16,6 +16,6 @@ These rules cover the SwiftPM service layers in `Sources/PippinCore`,
 
 ## Non-Negotiable Boundary
 
-`PippinCore` must remain independent of MCP, SwiftNIO, SwiftUI, and AppKit.
+`AtmarkCore` must remain independent of MCP, SwiftNIO, SwiftUI, and AppKit.
 `Package.swift` expresses this in the target graph; transport adaptation belongs
-in `PippinServer`, while application lifecycle and UI belong in `PippinApp`.
+in `AtmarkServer`, while application lifecycle and UI belong in `AtmarkApp`.
