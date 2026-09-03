@@ -104,6 +104,32 @@ the system frameworks.
   and disconnects. Preserve the timeout and the regression tests when changing
   lifecycle code.
 
+## Claude Code client integration
+
+- Batch-one AC3 is closed: Claude Code tested both transports live with
+  identical results (2026-09-04; evidence in the skeleton task's
+  `research/step9-integration-verification.md`, archived under `archive/2026-09/`).
+- Two MCP servers are registered for this project in the user's Claude Code
+  config: `atmark-http` (direct Streamable HTTP) and `atmark-shim` (bundled
+  stdio shim). The stdio entry is stable across app relaunches — the shim reads
+  `endpoint.json` at each launch. The HTTP entry is not: port and token rotate
+  every launch, so after restarting Atmark.app re-register it:
+  ```bash
+  cd /Users/is52hertz/Project/Atmark && \
+  PORT=$(python3 -c "import json;print(json.load(open('$HOME/Library/Application Support/Atmark/endpoint.json'))['port'])") && \
+  TOKEN=$(python3 -c "import json;print(json.load(open('$HOME/Library/Application Support/Atmark/endpoint.json'))['token'])") && \
+  claude mcp remove atmark-http -s local && \
+  claude mcp add --transport http atmark-http "http://127.0.0.1:$PORT/mcp" --header "Authorization: Bearer $TOKEN"
+  ```
+- The config lives outside the repo, in `~/.claude-personal/.claude.json`
+  (reached through the `~/.claude` symlink / `CLAUDE_CONFIG_DIR`), not in
+  `~/.claude.json`. Some agent environments run with `CLAUDE_CONFIG_DIR` unset
+  and therefore read the wrong file. Verify with `claude mcp get <name>` from
+  the user's own shell before assuming a registration landed.
+- The bearer token exists only in that local config and in `endpoint.json`
+  (mode 0600). Never write it to a committed file, a log, or a command echo.
+
+
 ## GUI and permission reporting
 
 - `SystemPermissionProvider` is non-prompting. Status rendering must never call
