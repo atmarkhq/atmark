@@ -175,3 +175,25 @@ Merged the finished pippin-architecture feat branch into main (7632b9e), then ex
 ### Status
 
 [OK] **Completed**
+
+
+## Session 8: Close skeleton AC3 via Claude Code dual-transport test
+<!-- trellis-session: v=2 fp=5cb073088b434b53 -->
+
+**Date**: 2026-09-04
+**Task**: Close skeleton AC3 via Claude Code dual-transport test
+**Branch**: `main`
+
+### Summary
+
+Packaged and launched Atmark.app (identity unchanged); verified HTTP (401/200) and shim transports protocol-level; registered atmark-http + atmark-shim into the user's Claude Code config; user ran the live AC3 test — both transports listed exactly atmark_status with field-identical output. AC3 and Step 9 closed, skeleton task archived. Follow-up: lifecycle-toggle and both module children are unblocked.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `46b4adc` | docs(trellis): close skeleton task AC3 via Claude Code dual-transport test |
+
+### Status
+
+[OK] **Completed**
